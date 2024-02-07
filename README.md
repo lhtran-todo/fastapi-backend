@@ -56,7 +56,7 @@ data:
 ```
 ## API Docs
 ### `/todos/`
-#### `POST`
+#### Method: `POST`
 ##### Summary:
 Create Todo
 
@@ -66,7 +66,7 @@ Create Todo
 > | 201 | Successful Response |
 > | 422 | Validation Error |
 
-#### `GET`
+#### Method: `GET`
 ##### Summary:
 
 Read Todos
@@ -87,7 +87,7 @@ Read Todos
 
 ### `/todos/{todo_id}`
 
-#### `GET`
+#### Method: `GET`
 ##### Summary:
 
 Read Todo
@@ -105,7 +105,7 @@ Read Todo
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-#### `PUT`
+#### Method: `PUT`
 ##### Summary:
 
 Update Todo
@@ -123,7 +123,7 @@ Update Todo
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-#### `DELETE`
+#### Method: `DELETE`
 ##### Summary:
 
 Delete Todo
@@ -143,7 +143,7 @@ Delete Todo
 
 ### `/health/`
 
-#### GET
+#### Method: GET
 ##### Summary:
 
 Check Health
