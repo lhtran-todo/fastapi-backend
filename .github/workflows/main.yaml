@@ -39,9 +39,13 @@ jobs:
           load: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ vars.ENV_IMAGE_TAG }}, ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }}
 
-      - name: Run and test container image
+      - name: Docker run
         run: |
-          docker run --name todo-backend -d -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }}
+          docker run --rm --name todo-backend -d -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }}
+
+      - name: curl
+        run: |
+          curl -f -LI --request GET http://localhost:8000/todos/
 
       - name: Build and push
         uses: docker/build-push-action@v5
