@@ -42,6 +42,7 @@ jobs:
       - name: Docker run
         run: |
           docker run --rm --name todo-backend -d -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }}
+          docker ps
 
       - name: curl
         run: |
