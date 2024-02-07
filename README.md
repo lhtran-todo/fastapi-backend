@@ -80,68 +80,68 @@ Read Todos
 
 ##### Responses
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | Successful Response |
-| 422 | Validation Error |
+> | Code | Description |
+> | ---- | ----------- |
+> | 200 | Successful Response |
+> | 422 | Validation Error |
 
 ### /todos/{todo_id}
 
-#### GET
+#### `GET``
 ##### Summary:
 
 Read Todo
 
 ##### Parameters
 
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| todo_id | path |  | Yes | integer |
+> | Name | Located in | Description | Required | Schema |
+> | ---- | ---------- | ----------- | -------- | ---- |
+> | todo_id | path |  | Yes | integer |
 
 ##### Responses
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | Successful Response |
-| 422 | Validation Error |
+> | Code | Description |
+> | ---- | ----------- |
+> | 200 | Successful Response |
+> | 422 | Validation Error |
 
-#### PUT
+#### `PUT``
 ##### Summary:
 
 Update Todo
 
 ##### Parameters
 
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| todo_id | path |  | Yes | integer |
+> | Name | Located in | Description | Required | Schema |
+> | ---- | ---------- | ----------- | -------- | ---- |
+> | todo_id | path |  | Yes | integer |
 
 ##### Responses
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | Successful Response |
-| 422 | Validation Error |
+> | Code | Description |
+> | ---- | ----------- |
+> | 200 | Successful Response |
+> | 422 | Validation Error |
 
-#### DELETE
+#### `DELETE``
 ##### Summary:
 
 Delete Todo
 
 ##### Parameters
 
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| todo_id | path |  | Yes | integer |
+> | Name | Located in | Description | Required | Schema |
+> | ---- | ---------- | ----------- | -------- | ---- |
+> | todo_id | path |  | Yes | integer |
 
 ##### Responses
 
-| Code | Description |
-| ---- | ----------- |
-| 204 | Successful Response |
-| 422 | Validation Error |
+> | Code | Description |
+> | ---- | ----------- |
+> | 204 | Successful Response |
+> | 422 | Validation Error |
 
-### /health/
+### `/health/``
 
 #### GET
 ##### Summary:
@@ -150,6 +150,6 @@ Check Health
 
 ##### Responses
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | Successful Response |
+> | Code | Description |
+> | ---- | ----------- |
+> | 200 | Successful Response |
