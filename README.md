@@ -85,7 +85,7 @@ Read Todos
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-### `/todos/{todo_id}``
+### `/todos/{todo_id}`
 
 #### `GET`
 ##### Summary:
