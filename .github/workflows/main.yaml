@@ -41,8 +41,9 @@ jobs:
 
       - name: Run and test container image
         run: |
-          docker run -rm --name todo-backend -d -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }} \
-            && curl -f -LI --request GET http://localhost:8000/todos
+          docker run --name todo-backend -d -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }} \
+          curl -f -LI --request GET http://localhost:8000/todos/
+          docker rm -f todo-backend
 
       - name: Build and push
         uses: docker/build-push-action@v5
