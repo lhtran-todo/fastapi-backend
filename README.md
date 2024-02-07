@@ -55,7 +55,7 @@ data:
   DB_STRING: bXlzcWwrcHltcXlvdTp1c2VyOnBhc3NAcmVmcmVzaEBtYXJpYWRiX2hvc3RvbmdpbmVkL2Ri #base64-encoded
 ```
 ## API Docs
-### `/todos/`
+### API: `/todos/`
 #### Method: `POST`
 ##### Summary:
 Create Todo
@@ -85,7 +85,7 @@ Read Todos
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-### `/todos/{todo_id}`
+### API: `/todos/{todo_id}`
 
 #### Method: `GET`
 ##### Summary:
