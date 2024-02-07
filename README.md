@@ -85,9 +85,9 @@ Read Todos
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-### /todos/{todo_id}
+### `/todos/{todo_id}``
 
-#### `GET``
+#### `GET`
 ##### Summary:
 
 Read Todo
@@ -105,7 +105,7 @@ Read Todo
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-#### `PUT``
+#### `PUT`
 ##### Summary:
 
 Update Todo
@@ -123,7 +123,7 @@ Update Todo
 > | 200 | Successful Response |
 > | 422 | Validation Error |
 
-#### `DELETE``
+#### `DELETE`
 ##### Summary:
 
 Delete Todo
@@ -141,7 +141,7 @@ Delete Todo
 > | 204 | Successful Response |
 > | 422 | Validation Error |
 
-### `/health/``
+### `/health/`
 
 #### GET
 ##### Summary:
