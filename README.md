@@ -55,32 +55,28 @@ data:
   DB_STRING: bXlzcWwrcHltcXlvdTp1c2VyOnBhc3NAcmVmcmVzaEBtYXJpYWRiX2hvc3RvbmdpbmVkL2Ri #base64-encoded
 ```
 ## API Docs
-
-### /todos/
-
-#### POST
+### `/todos/`
+#### `POST`
 ##### Summary:
-
 Create Todo
 
 ##### Responses
+> | Code | Description |
+> | ---- | ----------- |
+> | 201 | Successful Response |
+> | 422 | Validation Error |
 
-| Code | Description |
-| ---- | ----------- |
-| 201 | Successful Response |
-| 422 | Validation Error |
-
-#### GET
+#### `GET`
 ##### Summary:
 
 Read Todos
 
 ##### Parameters
 
-| Name | Located in | Description | Required | Schema |
-| ---- | ---------- | ----------- | -------- | ---- |
-| skip | query |  | No | integer |
-| limit | query |  | No | integer |
+> | Name | Located in | Description | Required | Schema |
+> | ---- | ---------- | ----------- | -------- | ---- |
+> | skip | query |  | No | integer |
+> | limit | query |  | No | integer |
 
 ##### Responses
 
