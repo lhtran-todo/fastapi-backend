@@ -1,8 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from app.config import DB_STRING
 
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://todo-dev:senhd239@lb.local.lhtran.com/todo-db-dev"
+
+SQLALCHEMY_DATABASE_URL = DB_STRING
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 

@@ -15,7 +15,6 @@ def get_db():
   finally:
     db.close()
 
-
 @app.post("/todos/", response_model=schemas.TodoReturn, status_code=status.HTTP_201_CREATED)
 def create_todo(todo: schemas.TodoBase, db: Session = Depends(get_db)):
   return crud.create_todo(db=db, todo=todo)
@@ -47,5 +46,6 @@ def delete_todo(todo_id: int, db: Session = Depends(get_db)):
   else:
     return
   
-
-
+@app.get("/health/", status_code=status.HTTP_200_OK)
+def check_health():
+  return {"status": "ok"}
