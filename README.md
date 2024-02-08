@@ -2,9 +2,14 @@
 
 
 ## Parameters
+- `DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"` Database string to connect to MariaDB Support database
 
-- `-p 8000:8000/tcp` Forwards port 8000 from the host to the container.  This is the primary port of the API.
-- `-e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"` Database string to connect to MariaDB Support database
+## Run directly (required Python 3.x)
+```
+pip install -r requirements.txt
+export DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
 
 ## Docker run
 
@@ -39,6 +44,8 @@ spec:
   containers:
     - name: todo-backend
       image: longhtran91/todo-backend
+      ports:
+        - containerPort: 8000
       env:
         - name: DB_STRING
           valueFrom:
