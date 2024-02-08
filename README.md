@@ -2,7 +2,7 @@
 
 
 ## Parameters
-- `DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"` Database string to connect to MariaDB Support database
+- `DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"` Database string to connect to MySQL/MariaDB database. [More information](https://docs.sqlalchemy.org/en/20/dialects/mysql.html) 
 
 ## Run directly (required Python 3.x)
 ```
