@@ -150,7 +150,7 @@ Delete Todo
 
 ### API: `/health/`
 
-#### Method: GET
+#### Method: `GET`
 ##### Summary:
 
 Check Health
