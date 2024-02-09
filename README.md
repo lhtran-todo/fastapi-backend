@@ -2,7 +2,8 @@
 
 
 ## Parameters
-- `-e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"` Database string to connect to MySQL/MariaDB database. [More information](https://docs.sqlalchemy.org/en/20/dialects/mysql.html)
+- `-e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"`: Database string to connect to MySQL/MariaDB database. [More information](https://docs.sqlalchemy.org/en/20/dialects/mysql.html)
+- `-e PORT=8000`: Listening port of the container. Default: 8000
 
 ## Run directly (required Python 3.x)
 ```
@@ -18,6 +19,7 @@ docker run \
 -d \
 --name todo-backend \
 -e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname" \
+-e PORT=8000 \
 -p 8000:8000/tcp \
 longhtran91/todo-backend
 ```
@@ -29,6 +31,7 @@ services:
     container_name: todo-backend
     environment:
       - DB_STRING=mysql+pymysql://user:pass@mariadb_hostname/dbname
+      - PORT=8000
     ports:
       - 8000:8000/tcp
     image: longhtran91/todo-backend
@@ -47,6 +50,8 @@ spec:
       ports:
         - containerPort: 8000
       env:
+        - name: PORT
+          value: 8000
         - name: DB_STRING
           valueFrom:
             secretKeyRef:
