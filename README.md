@@ -43,6 +43,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todo-backend-deployment
+  namespace: todo
   labels:
     app: todo-backend
 spec:
@@ -73,6 +74,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: todo-backend-secret
+  namespace: todo
 type: Opaque
 data:
   DB_STRING: bXlzcWwrcHltcXlvdTp1c2VyOnBhc3NAcmVmcmVzaEBtYXJpYWRiX2hvc3RvbmdpbmVkL2Ri #base64-encoded
