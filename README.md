@@ -39,24 +39,35 @@ services:
 ## Kubernetes
 ```
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: todo-backend
+  name: todo-backend-deployment
+  labels:
+    app: todo-backend
 spec:
-  containers:
-    - name: todo-backend
-      image: longhtran91/todo-backend
-      ports:
-        - containerPort: 8000
-      env:
-        - name: PORT
-          value: 8000
-        - name: DB_STRING
-          valueFrom:
-            secretKeyRef:
-              name: todo-backend-secret
-              key: DB_STRING
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+        - name: todo-backend
+          image: longhtran91/todo-backend
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: 8000
+            - name: DB_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: todo-backend-secret
+                  key: DB_STRING
 ---
 apiVersion: v1
 kind: Secret
