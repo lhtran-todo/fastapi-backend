@@ -25,7 +25,8 @@ longhtran91/todo-backend
 ```
 ## Docker compose
 ```
-name: Todo App
+version: '3.1'
+
 services:
   todo-backend:
     container_name: todo-backend
