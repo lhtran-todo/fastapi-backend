@@ -1,4 +1,4 @@
-name: Build todo FastAPI backend
+name: Build Todo FastAPI Backend
 on:
   push:
     branches:
