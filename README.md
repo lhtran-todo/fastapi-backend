@@ -60,11 +60,12 @@ spec:
       containers:
         - name: todo-backend
           image: longhtran91/todo-backend
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
             - name: APP_PORT
-              value: 8000
+              value: "8000"
             - name: DB_STRING
               valueFrom:
                 secretKeyRef:
