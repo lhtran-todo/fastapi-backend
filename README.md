@@ -19,7 +19,7 @@ docker run \
 -d \
 --name todo-backend \
 -e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname" \
--e PORT=8000 \
+-e APP_PORT=8000 \
 -p 8000:8000/tcp \
 longhtran91/todo-backend
 ```
@@ -32,7 +32,7 @@ services:
     container_name: todo-backend
     environment:
       - DB_STRING=mysql+pymysql://user:pass@mariadb_hostname/dbname
-      - PORT=8000
+      - APP_PORT=8000
     ports:
       - 8000:8000/tcp
     image: longhtran91/todo-backend
@@ -60,11 +60,12 @@ spec:
       containers:
         - name: todo-backend
           image: longhtran91/todo-backend
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
-            - name: PORT
-              value: 8000
+            - name: APP_PORT
+              value: "8000"
             - name: DB_STRING
               valueFrom:
                 secretKeyRef:
@@ -167,7 +168,7 @@ Delete Todo
 > | 204 | Successful Response |
 > | 422 | Validation Error |
 
-### API: `/health/`
+### API: `/health`
 
 #### Method: `GET`
 ##### Summary:

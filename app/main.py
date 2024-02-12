@@ -46,6 +46,6 @@ def delete_todo(todo_id: int, db: Session = Depends(get_db)):
   else:
     return
   
-@app.get("/health/", status_code=status.HTTP_200_OK)
+@app.get("/health", status_code=status.HTTP_200_OK)
 def check_health():
   return {"status": "ok"}
