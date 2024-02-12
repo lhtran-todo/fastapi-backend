@@ -167,7 +167,7 @@ Delete Todo
 > | 204 | Successful Response |
 > | 422 | Validation Error |
 
-### API: `/health/`
+### API: `/health`
 
 #### Method: `GET`
 ##### Summary:
