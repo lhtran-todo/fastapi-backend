@@ -7,13 +7,13 @@
 
 
 ## Parameters
-- `-e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"`: Database string to connect to MySQL/MariaDB database. [More information](https://docs.sqlalchemy.org/en/20/dialects/mysql.html)
+- `-e DB_STRING_FILE_PATH="/etc/secrets/db_string"`: Path to the file containing DB string for MySQL/MariaDB. [More information on the content of the file](https://docs.sqlalchemy.org/en/20/dialects/mysql.html)
 - `-e PORT=8000`: Listening port of the container. Default: 8000
 
 ## Run directly (required Python 3.x)
 ```
 pip install -r requirements.txt
-export DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname"
+export DB_STRING_FILE_PATH="/etc/secrets/db_string"
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -23,7 +23,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 docker run \
 -d \
 --name todo-backend \
--e DB_STRING="mysql+pymysql://user:pass@mariadb_hostname/dbname" \
+-e B_STRING_FILE_PATH="/etc/secrets/db_string" \
 -e APP_PORT=8000 \
 -p 8000:8000/tcp \
 longhtran91/todo-backend
@@ -36,7 +36,7 @@ services:
   todo-backend:
     container_name: todo-backend
     environment:
-      - DB_STRING=mysql+pymysql://user:pass@mariadb_hostname/dbname
+      - DB_STRING_FILE_PATH="/etc/secrets/db_string"
       - APP_PORT=8000
     ports:
       - 8000:8000/tcp
@@ -71,20 +71,24 @@ spec:
           env:
             - name: APP_PORT
               value: "8000"
-            - name: DB_STRING
-              valueFrom:
-                secretKeyRef:
-                  name: todo-backend-secret
-                  key: DB_STRING
+            - name: DB_STRING_FILE_PATH
+              value: /etc/secrets/db_string
+          volumeMounts:
+            - name: db-string-vol
+              mountPath: /etc/secrets
+      volumes:
+        - name: db-string-vol
+          secret:
+            secretName: db-secret
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: todo-backend-secret
+  name: db-secret
   namespace: todo
 type: Opaque
 data:
-  DB_STRING: bXlzcWwrcHltcXlvdTp1c2VyOnBhc3NAcmVmcmVzaEBtYXJpYWRiX2hvc3RvbmdpbmVkL2Ri #base64-encoded
+  db_string: bXlzcWwrcHlteXNxbDovL3Jvb3Q6cGFzc3dvcmRAbWFyaWFkYi1zdmMvdG9kby1kZXYtZGI=
 ```
 ## API Docs
 ### API: `/todos/`
