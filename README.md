@@ -2,13 +2,27 @@
 
 
 ## Parameters
-- `-e DB_STRING_FILE_PATH="/etc/secrets/db_string"`: Path to the file containing DB string for MySQL/MariaDB. [More information on the content of the file](https://docs.sqlalchemy.org/en/20/dialects/mysql.html)
+- `-e DB_CRED_FILE_PATH="/etc/secrets/db_cred.json"`: Path to the json file containing username and password for MySQL/MariaDB.
+```json
+{
+  "username": "username",
+  "password": "password"
+}
+```
+- `-e DB_CONNECTION_FILE_PATH="/etc/secrets/db_conn.json"`: Path to the json file containing endpoint and DB name for MySQL/MariaDB.
+```json
+{
+  "db_name": "db_name",
+  "primary_endpoint": "primary_endpoint.com"
+}
+```
 - `-e PORT=8000`: Listening port of the container. Default: 8000
 
 ## Run directly (required Python 3.x)
 ```
 pip install -r requirements.txt
-export DB_STRING_FILE_PATH="/etc/secrets/db_string"
+export DB_CRED_FILE_PATH="/etc/secrets/db_cred.json"
+export DB_CONNECTION_FILE_PATH="/etc/secrets/db_conn.json"
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -18,7 +32,8 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 docker run \
 -d \
 --name todo-backend \
--e B_STRING_FILE_PATH="/etc/secrets/db_string" \
+-e DB_CRED_FILE_PATH="/etc/secrets/db_cred.json" \
+-e DB_CONNECTION_FILE_PATH="/etc/secrets/db_conn.json" \
 -e APP_PORT=8000 \
 -p 8000:8000/tcp \
 longhtran91/todo-backend
@@ -31,14 +46,42 @@ services:
   todo-backend:
     container_name: todo-backend
     environment:
-      - DB_STRING_FILE_PATH="/etc/secrets/db_string"
+      - DB_CRED_FILE_PATH="/etc/secrets/db_cred.json"
+      - DB_CONNECTION_FILE_PATH="/etc/secrets/db_conn.json"
       - APP_PORT=8000
     ports:
       - 8000:8000/tcp
     image: longhtran91/todo-backend
 ```
-## Kubernetes
+## Kubernetes (EKS, Secrets Store CSI with AWS)
 ```
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: todo
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: todo
+  namespace: todo
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::{account}:role/{role_name}
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: rds-db-secret
+  namespace: todo
+spec:
+  provider: aws
+  parameters:
+    objects: |
+      - objectName: "arn:aws:ssm:{region}:{account}:parameter{parameter_name}"
+        objectAlias: db_conn.json
+      - objectName: "arn:aws:secretsmanager:{region}:{account}:{secret_name}"
+        objectAlias: db_cred.json
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -57,33 +100,31 @@ spec:
       labels:
         app: todo-backend
     spec:
+      serviceAccountName: todo
       containers:
         - name: todo-backend
-          image: longhtran91/todo-backend
+          image: todo-backend
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
             - name: APP_PORT
               value: "8000"
-            - name: DB_STRING_FILE_PATH
-              value: /etc/secrets/db_string
+            - name: DB_CRED_FILE_PATH
+              value: /etc/secrets/db_cred.json
+            - name: DB_CONNECTION_FILE_PATH
+              value: /etc/secrets/db_conn.json
           volumeMounts:
-            - name: db-string-vol
+            - name: db-secret
               mountPath: /etc/secrets
+              readOnly: true
       volumes:
-        - name: db-string-vol
-          secret:
-            secretName: db-secret
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: db-secret
-  namespace: todo
-type: Opaque
-data:
-  db_string: bXlzcWwrcHlteXNxbDovL3Jvb3Q6cGFzc3dvcmRAbWFyaWFkYi1zdmMvdG9kby1kZXYtZGI=
+        - name: db-secret
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "rds-db-secret"
 ```
 ## API Docs
 ### API: `/todos/`
