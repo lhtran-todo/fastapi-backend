@@ -57,11 +57,6 @@ services:
 ```
 ---
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: todo
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: todo
@@ -78,9 +73,11 @@ spec:
   provider: aws
   parameters:
     objects: |
-      - objectName: "arn:aws:ssm:{region}:{account}:parameter{parameter_name}"
-        objectAlias: db_conn.json
-      - objectName: "arn:aws:secretsmanager:{region}:{account}:{secret_name}"
+      - objectName: "{param_name}"
+        objectType: ssmparameter
+        objectAlias: "db_conn.json"
+      - objectName: "{secret_name}"
+        objectType: secretsmanager
         objectAlias: db_cred.json
 ---
 apiVersion: apps/v1
@@ -103,7 +100,7 @@ spec:
       serviceAccountName: todo
       containers:
         - name: todo-backend
-          image: todo-backend
+          image: longhtran91/todo-backend
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -124,7 +121,7 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: "rds-db-secret"
+              secretProviderClass: rds-db-secret
 ```
 ## API Docs
 ### API: `/todos/`
