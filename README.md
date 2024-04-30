@@ -124,6 +124,22 @@ spec:
               secretProviderClass: rds-db-secret
 ```
 ## API Docs
+
+### `/metrics`
+
+#### `GET`
+##### Summary:
+Metrics
+
+##### Description:
+Endpoint that serves Prometheus metrics.
+
+##### Responses
+| Code | Description |
+| ---- | ----------- |
+| 200 | Successful Response |
+
+
 ### API: `/todos/`
 #### Method: `POST`
 ##### Summary:
