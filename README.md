@@ -127,7 +127,7 @@ spec:
 
 ### `/metrics`
 
-#### `GET`
+#### Method: `GET`
 ##### Summary:
 Metrics
 
