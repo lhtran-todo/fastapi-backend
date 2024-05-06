@@ -37,7 +37,7 @@ jobs:
         if: ${{ (github.head_ref || github.ref_name) == 'main' }}
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: ${{ vars.DOCKER_HUB_USERNAME }}/todo-backend:latest, ${{ vars.DOCKER_HUB_USERNAME }}/todo-backend:${{ vars.ENV_IMAGE_TAG }}, ${{ vars.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }}
 
@@ -46,6 +46,6 @@ jobs:
         if: ${{ (github.head_ref || github.ref_name) != 'main' }}
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: ${{ vars.DOCKER_HUB_USERNAME }}/todo-backend:latest, ${{ vars.DOCKER_HUB_USERNAME }}/todo-backend:${{ vars.ENV_IMAGE_TAG }}, ${{ vars.DOCKER_HUB_USERNAME }}/todo-backend:${{ steps.get_short_sha.outputs.short_sha }}
